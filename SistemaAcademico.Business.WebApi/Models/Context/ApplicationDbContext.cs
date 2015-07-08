@@ -12,11 +12,8 @@ namespace SistemaAcademico.Business.WebApi.Models.Context
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
-
-        }
+            : base("SistemaAcademico", throwIfV1Schema: false)
+        { }
 
 
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
