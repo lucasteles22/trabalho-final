@@ -1,0 +1,17 @@
+{
+  "name": "SistemaAcademico.Presentation.Web",
+  "version": "0.0.1",
+  "homepage": "https://github.com/puc-aswd-web/trabalho-final",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.5",
+    "fontawesome": "~4.3.0"
+  }
+}
