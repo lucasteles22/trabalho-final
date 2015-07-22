@@ -4,8 +4,8 @@
     bower = require('gulp-bower');
 
 var config = {
-    sassPath: 'src/sass',
-    bowerDir: 'bower_components'
+    sassPath: 'Web/src/sass',
+    bowerDir: './bower_components'
 }
 
 //gulp bower - instala dependencias do bower
@@ -17,11 +17,11 @@ gulp.task('bower', function () {
 //gulp icons - copia os icones do fontawesome para o diretorio apropriado
 gulp.task('icons', function () {
     return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')
-        .pipe(gulp.dest('./assets/fonts'));
+        .pipe(gulp.dest('./Web/assets/fonts'));
 });
 
 gulp.task('css', function () {
-    return sass('./src/sass/', {
+    return sass('./Web/src/sass/', {
         style: 'compressed',
         loadPath: [
             config.bowerDir + '/bootstrap-sass-official/assets/stylesheets/',
@@ -31,7 +31,7 @@ gulp.task('css', function () {
     .on("error", notify.onError(function (error) {
         return "Error: " + error.message;
     }))
-    .pipe(gulp.dest('./assets/css/'));
+    .pipe(gulp.dest('./Web/assets/css/'));
 });
 
 
