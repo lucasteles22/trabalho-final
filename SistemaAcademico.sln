@@ -9,6 +9,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaAcademico.Business.WebApi", "SistemaAcademico.Business.WebApi\SistemaAcademico.Business.WebApi.csproj", "{D090551D-D476-4919-8090-ACBF8B4F639B}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web(2)", "http://localhost:12652", "{32CE3DB3-A0D1-45D3-9591-25AFE954C555}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_12652"
+		Debug.AspNetCompiler.PhysicalPath = "SistemaAcademico.Presentation\Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12652\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_12652"
+		Release.AspNetCompiler.PhysicalPath = "SistemaAcademico.Presentation\Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12652\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "SistemaAcademico.Presentation\Web\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +40,16 @@ Global
 		{D090551D-D476-4919-8090-ACBF8B4F639B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D090551D-D476-4919-8090-ACBF8B4F639B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D090551D-D476-4919-8090-ACBF8B4F639B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32CE3DB3-A0D1-45D3-9591-25AFE954C555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32CE3DB3-A0D1-45D3-9591-25AFE954C555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32CE3DB3-A0D1-45D3-9591-25AFE954C555}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{32CE3DB3-A0D1-45D3-9591-25AFE954C555}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D090551D-D476-4919-8090-ACBF8B4F639B} = {0FD6D33D-433A-40D3-AB9F-500FC3DBA79A}
+		{32CE3DB3-A0D1-45D3-9591-25AFE954C555} = {66E1765E-5D95-43D7-BA66-07F19DC7EAA4}
 	EndGlobalSection
 EndGlobal
