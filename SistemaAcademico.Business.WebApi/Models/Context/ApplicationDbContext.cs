@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using SistemaAcademico.Business.WebApi.Models.Mapping;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
@@ -15,7 +17,14 @@ namespace SistemaAcademico.Business.WebApi.Models.Context
             : base("SistemaAcademico", throwIfV1Schema: false)
         { }
 
-
+        public DbSet<Secretary> Secretaries { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Coordinator> Coordinators { get; set; }
+        public DbSet<Score> Scores { get; set; }
+        public DbSet<SchoolClass> SchoolClasses { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Course> Courses { get; set; }
+ 
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -45,8 +54,13 @@ namespace SistemaAcademico.Business.WebApi.Models.Context
             #endregion
 
             #region -- Model Mapping --
-            //            modelBuilder.Configurations.Add(new ClaimMapping());
-
+            modelBuilder.Configurations.Add(new CoordinatorMapping());
+            modelBuilder.Configurations.Add(new StudentMapping());
+            modelBuilder.Configurations.Add(new SecretaryMapping());
+            modelBuilder.Configurations.Add(new ScoreMapping());
+            modelBuilder.Configurations.Add(new SchoolClassMapping());
+            modelBuilder.Configurations.Add(new SubjectMapping());
+            modelBuilder.Configurations.Add(new CourseMapping());
             #endregion
         }
         public static ApplicationDbContext Create()

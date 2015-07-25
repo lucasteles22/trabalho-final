@@ -167,14 +167,29 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="BindingModels\Account\AccountBindingModels.cs" />
+    <Compile Include="BindingModels\Account\AccountViewModels.cs" />
+    <Compile Include="Models\SchoolClass.cs" />
     <Compile Include="Models\Context\ApplicationDbContext.cs" />
+    <Compile Include="Models\Coordinator.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Mapping\SchoolClassMapping.cs" />
+    <Compile Include="Models\Mapping\CoordinatorMapping.cs" />
+    <Compile Include="Models\Mapping\CourseMapping.cs" />
+    <Compile Include="Models\Mapping\ScoreMapping.cs" />
+    <Compile Include="Models\Mapping\SecretaryMapping.cs" />
+    <Compile Include="Models\Mapping\StudentMapping.cs" />
+    <Compile Include="Models\Mapping\SubjectMapping.cs" />
+    <Compile Include="Models\Score.cs" />
+    <Compile Include="Models\Secretary.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -193,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Validation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
