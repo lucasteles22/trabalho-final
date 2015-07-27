@@ -6,8 +6,8 @@
 	concat = require('gulp-concat');
 
 var config = {
-    sassPath: './Web/src/sass',
-	jsPath: './Web/src/js',
+    sassPath: './Web/sass',
+	jsPath: './Web/js',
     bowerDir: './Web/assets/vendors'
 }
 

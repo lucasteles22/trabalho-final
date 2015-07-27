@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-<head>
+<html ng-app="sistemaAcademico">
+<head lang="pt-br">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,26 +47,16 @@
 
     </header>
 
+
+
     <div class="container">
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                <form class="">
-                    <h2>Acessar o sistema</h2>
-                    <label for="inputLogin" class="sr-only">Login</label>
-                    <input type="email" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
-                    <label for="inputSenha" class="sr-only">Senha</label>
-                    <input type="password" id="inputSenha" class="form-control" placeholder="Senha" required>
-
-                    <button class="btn btn-md btn-primary pull-right" type="submit">Entrar</button>
-
-                </form>
-            </div>
-        </div>
+        <div ng-view></div>
     </div> <!-- /container -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="assets/vendors/angular/angular.min.js"></script>
+    <script src="assets/vendors/angular/angular.js"></script>
+    <script src="assets/vendors/angular-route/angular-route.js"></script>
     <script src="assets/js/main.min.js"></script>
 </body>
 </html>
