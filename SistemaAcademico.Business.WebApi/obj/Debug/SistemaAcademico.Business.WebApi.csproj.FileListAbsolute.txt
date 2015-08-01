@@ -121,6 +121,11 @@ C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcade
 C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\System.Web.Http.Owin.xml
-C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\obj\Debug\SistemaAcademico.Business.WebApi.csprojResolveAssemblyReference.cache
 C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\obj\Debug\SistemaAcademico.Business.WebApi.dll
 C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\obj\Debug\SistemaAcademico.Business.WebApi.pdb
+C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\System.Web.Cors.dll
+C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\System.Web.Http.Cors.dll
+C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\System.Web.Http.Cors.xml
+C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\obj\Debug\SistemaAcademico.Business.WebApi.csprojResolveAssemblyReference.cache
+C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\Microsoft.Owin.Cors.dll
+C:\Users\Godoy\Documents\Visual Studio 2013\Projects\trabalho-final\SistemaAcademico.Business.WebApi\bin\Microsoft.Owin.Cors.xml

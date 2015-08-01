@@ -1,7 +1,8 @@
 ﻿'user strict';
 
 app.controller('loginCtrl', function ($scope, loginService) {
-    $scope.login = function(user) {
+    $scope.login = function (user) {
+        console.log(user);
         console.log("logincontroler");
         loginService.login(user);
     }

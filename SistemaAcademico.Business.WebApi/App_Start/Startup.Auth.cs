@@ -12,6 +12,8 @@ using SistemaAcademico.Business.WebApi.Providers;
 using SistemaAcademico.Business.WebApi.Models;
 using SistemaAcademico.Business.WebApi.Models.Context;
 using SistemaAcademico.Business.WebApi.App_Start.Identity;
+using System.Web.Http.Cors;
+using Microsoft.Owin.Cors;
 
 namespace SistemaAcademico.Business.WebApi
 {
@@ -24,6 +26,10 @@ namespace SistemaAcademico.Business.WebApi
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+         
+            app.UseCors(CorsOptions.AllowAll);
+           
+
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -46,6 +52,7 @@ namespace SistemaAcademico.Business.WebApi
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
+
         }
     }
 }
