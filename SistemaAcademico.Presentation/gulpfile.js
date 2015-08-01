@@ -6,8 +6,8 @@
 	concat = require('gulp-concat');
 
 var config = {
-    sassPath: './Web/src/sass',
-	jsPath: './Web/src/js',
+    sassPath: './Web/sass',
+	jsPath: './Web/js',
     bowerDir: './Web/assets/vendors'
 }
 
@@ -38,15 +38,15 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function() {
-  return gulp.src(config.jsPath+'/*.js')
-	.pipe(concat('main.min.js'))
-    .pipe(uglify())
+  return gulp.src(config.jsPath+'/**/*.js')
+	.pipe(concat('main.js'))
+    //.pipe(uglify())
     .pipe(gulp.dest('./Web/assets/js/'));
 });
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
-	gulp.watch(config.jsPath+'/*.js', ['js']);
+	gulp.watch(config.jsPath+'/**/*.js', ['js']);
     gulp.watch(config.sassPath + '/**/*.scss', ['css']);
 });
 

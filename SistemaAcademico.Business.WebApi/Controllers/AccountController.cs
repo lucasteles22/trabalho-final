@@ -329,7 +329,7 @@ namespace SistemaAcademico.Business.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new Student() { UserName = model.Email, Email = model.Email };
+            var user = new Student() { UserName = model.Email, Email = model.Email, CourseId = 1 };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
