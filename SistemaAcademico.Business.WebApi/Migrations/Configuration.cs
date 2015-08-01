@@ -1,5 +1,7 @@
 namespace SistemaAcademico.Business.WebApi.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using SistemaAcademico.Business.WebApi.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +28,13 @@ namespace SistemaAcademico.Business.WebApi.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            var passwordHash = new PasswordHasher();
+            string defaultPassword = passwordHash.HashPassword("123456");
+
+            context.Coordinators.AddOrUpdate(x => x.UserName, new Coordinator() { UserName = "coord", Email = "coord@teste.com", PasswordHash = defaultPassword });
+            context.SaveChanges();
+
+            context.Courses.AddOrUpdate(x => x.Name, new Course("Ciência da Computação", context.Coordinators.First().Id ) );
         }
     }
 }

@@ -15,8 +15,8 @@ namespace SistemaAcademico.Business.WebApi.Models
 
         public virtual ICollection<SchoolClass> SchoolClasses { get; private set; }
 
-        public int CourseId { get; private set; }
-        public virtual Course Course { get; private set; }
+        public int CourseId { get; set; }
+        public virtual Course Course { get; set; }
 
         #region ctor
         //TODO: Refatorar no codigo para criar um objeto do tipo Student com construtuor. Para isso, deverá alterar a classe pai.
