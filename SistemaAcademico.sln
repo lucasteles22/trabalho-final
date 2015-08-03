@@ -1,15 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{0FD6D33D-433A-40D3-AB9F-500FC3DBA79A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{66E1765E-5D95-43D7-BA66-07F19DC7EAA4}"
+	ProjectSection(SolutionItems) = preProject
+		SistemaAcademico.Presentation\bower.json = SistemaAcademico.Presentation\bower.json
+		SistemaAcademico.Presentation\gulpfile.js = SistemaAcademico.Presentation\gulpfile.js
+		SistemaAcademico.Presentation\package.json = SistemaAcademico.Presentation\package.json
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaAcademico.Business.WebApi", "SistemaAcademico.Business.WebApi\SistemaAcademico.Business.WebApi.csproj", "{D090551D-D476-4919-8090-ACBF8B4F639B}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web(2)", "http://localhost:12652", "{32CE3DB3-A0D1-45D3-9591-25AFE954C555}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "http://localhost:12652", "{32CE3DB3-A0D1-45D3-9591-25AFE954C555}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"

@@ -9,20 +9,19 @@ using System.Web.Http;
 
 namespace SistemaAcademico.Business.WebApi.Controllers
 {
-    //public class StudentsController : ApiController
-    //{
-    //    [HttpGet]
-    //    public IEnumerable<Student> Get()
-    //    {
-    //        var score = new Score("e98c4998-8e47-4678-8d88-7146bac9fc93", 99.7);
-    //        IEnumerable<Student> students = new List<Student>();
-    //        using (var db = new ApplicationDbContext())
-    //        {
-    //            db.Scores.Add(score);
-    //            db.SaveChanges();
-    //            students = db.Students.ToList();
-    //        }
-    //        return students;
-    //    }
-    //}
+    [RoutePrefix("api/students")]
+    public class StudentsController : ApiController
+    {
+        [HttpGet]
+        [Route("")]
+        public IEnumerable<string> Get()
+        {
+            IEnumerable<string> students = new List<string>();
+            using (var db = new ApplicationDbContext())
+            {
+                students = db.Students.OrderBy(x => x.UserName).Select(x => x.UserName).ToList();
+            }
+            return students;
+        }
+    }
 }

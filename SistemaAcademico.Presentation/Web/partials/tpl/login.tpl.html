@@ -4,12 +4,19 @@
             
             <h2>Acessar o sistema</h2>
             <label for="inputLogin" class="sr-only">Login</label>
-            <input type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus ng-model="user.username">
+            <input type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus ng-model="user.userName">
             <label for="inputSenha" class="sr-only">Senha</label>
             <input type="password" id="inputSenha" class="form-control" placeholder="Senha" required ng-model="user.password">
 
             <button class="btn btn-md btn-primary pull-right" type="submit" ng-disabled="formLogin.$invalid" ng-click="login(user)">Entrar</button>
 
         </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div data-ng-hide="message == ''" class="alert alert-danger">
+            {{message}}
+        </div>
     </div>
 </div>
