@@ -35,7 +35,6 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
         }
-        console.log(_authentication.userName)
     }
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;

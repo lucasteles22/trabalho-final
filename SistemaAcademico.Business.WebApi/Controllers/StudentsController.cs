@@ -14,12 +14,12 @@ namespace SistemaAcademico.Business.WebApi.Controllers
     {
         [HttpGet]
         [Route("")]
-        public IEnumerable<string> Get()
+        public IEnumerable<object> Get()
         {
-            IEnumerable<string> students = new List<string>();
+            IEnumerable<object> students = new List<object>();
             using (var db = new ApplicationDbContext())
             {
-                students = db.Students.OrderBy(x => x.UserName).Select(x => x.UserName).ToList();
+                students = db.Students.OrderBy(x => x.UserName).Select(x => new { UserName = x.UserName, Id = x.Id }).ToList();
             }
             return students;
         }

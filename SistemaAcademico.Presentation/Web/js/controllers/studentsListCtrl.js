@@ -1,18 +1,12 @@
 ﻿'user strict';
 
-app.controller('studentsListCtrl', function ($scope, $http, authService) {
-    var serviceBase = 'http://localhost:50689/';
+app.controller('studentsListCtrl', function ($scope, studentService) {
     activate();
     var students = [];
-
-    function activate() {
-        $scope.authentication = authService.authentication;
-        $http.get(serviceBase + 'api/students/').success(function (res) {
-            angular.forEach(res, function (item) {
-                students.push(item);
-            });
-            $scope.students = students;
-        });
+    function activate () {
+        var students = studentService.getAllStudents();
+        console.log(students);
+        $scope.students = students;
     }
 });
 

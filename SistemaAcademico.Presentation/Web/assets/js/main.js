@@ -1,7 +1,20 @@
 'use strict';
 var app = angular.module('sistemaAcademico', ['ngRoute', 'LocalStorageModule']);
 app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+
+    /* Início - dasativar cache e status 304 - not modified*/
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};
+    }
+    //disable IE ajax request caching
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+    // extra
+    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
     $httpProvider.defaults.useXDomain = true;
+    /* Fim - dasativar cache e status 304 - not modified*/
+
+
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
@@ -47,19 +60,13 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
 
 'user strict';
 
-app.controller('studentsListCtrl', function ($scope, $http, authService) {
-    var serviceBase = 'http://localhost:50689/';
+app.controller('studentsListCtrl', function ($scope, studentService) {
     activate();
     var students = [];
-
-    function activate() {
-        $scope.authentication = authService.authentication;
-        $http.get(serviceBase + 'api/students/').success(function (res) {
-            angular.forEach(res, function (item) {
-                students.push(item);
-            });
-            $scope.students = students;
-        });
+    function activate () {
+        var students = studentService.getAllStudents();
+        console.log(students);
+        $scope.students = students;
     }
 });
 
@@ -115,7 +122,6 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
         }
-        console.log(_authentication.userName)
     }
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
@@ -157,3 +163,23 @@ app.factory('loginService', function ($http) {
     }
 });
 
+
+'use strict';
+app.factory('studentService', ['$http', function ($http) {
+    var studentServiceFactory = {};
+    var serviceBase = 'http://localhost:50689/';
+
+    var _getAllStudents = function () {
+        var students = [];
+        $http.get(serviceBase + 'api/students/').success(function (res) {
+            angular.forEach(res, function (item) {
+                students.push(item);
+            });            
+        });
+
+        return students;
+    }
+
+    studentServiceFactory.getAllStudents = _getAllStudents;
+    return studentServiceFactory;
+}]);
