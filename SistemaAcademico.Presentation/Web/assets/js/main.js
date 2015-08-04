@@ -14,8 +14,8 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
     $httpProvider.defaults.useXDomain = true;
     /* Fim - dasativar cache e status 304 - not modified*/
 
-
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'loginCtrl'
@@ -62,12 +62,22 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
 });
 
 
-'user strict';
-
-app.controller('studentsListCtrl', function ($scope, studentService) {
-    $scope.students = studentService.getAllStudents();
-});
-
+(function () {
+    'user strict';
+    app.controller('studentsListCtrl', function ($scope, studentService) {
+        studentService.getAllStudents().then(function (response) {
+            var students = [];
+            angular.forEach(response, function (item) {
+                students.push(item);
+            });
+            $scope.students = students;
+        },
+        function (err) {
+            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+            console.log(err)
+        });
+    });
+})();
 
     'use strict';
     app.directive('loginDirective', function () {
@@ -128,56 +138,26 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
     return authServiceFactory;
 }]);
-'use strict';
+(function () {
+    'use strict';
+    app.factory('studentService', ['$http', '$q', function ($http, $q) {
+        var studentServiceFactory = {};
+        var serviceBase = 'http://localhost:50689/';
 
-app.factory('loginService', function ($http) {
-    return {
-        login: function(user, e) {
-            console.log('login service');
-            console.log(user);
-            console.log(e);
-            
-            user.grant_type = 'password';
-            $http({
-                url: 'http://localhost:50689/api/values',
-                //url: 'http://localhost:50689/token',
-                method: "POST",
-                data: 'grant_type=password&username='+user.username+'&password='+user.password,
-                
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function (result) {
-                console.log(result);
-                // $scope.resultPost = result;
-                console.log('success')
-            }).error(function () {
-                console.log("error");
+        //https://docs.angularjs.org/api/ng/service/$q
+        var _getAllStudents = function () {
+            var students = [];
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/students/').success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
             });
-
-     
-
-
-
+            return deferred.promise;
         }
-    }
-});
 
+        studentServiceFactory.getAllStudents = _getAllStudents;
+        return studentServiceFactory;
+    }]);
 
-'use strict';
-app.factory('studentService', ['$http', function ($http) {
-    var studentServiceFactory = {};
-    var serviceBase = 'http://localhost:50689/';
-
-    var _getAllStudents = function () {
-        var students = [];
-        $http.get(serviceBase + 'api/students/').success(function (res) {
-            angular.forEach(res, function (item) {
-                students.push(item);
-            });            
-        });
-
-        return students;
-    }
-
-    studentServiceFactory.getAllStudents = _getAllStudents;
-    return studentServiceFactory;
-}]);
+})();

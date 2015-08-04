@@ -1,19 +1,23 @@
-﻿'use strict';
-app.factory('studentService', ['$http', function ($http) {
-    var studentServiceFactory = {};
-    var serviceBase = 'http://localhost:50689/';
+﻿(function () {
+    'use strict';
+    app.factory('studentService', ['$http', '$q', function ($http, $q) {
+        var studentServiceFactory = {};
+        var serviceBase = 'http://localhost:50689/';
 
-    var _getAllStudents = function () {
-        var students = [];
-        $http.get(serviceBase + 'api/students/').success(function (res) {
-            angular.forEach(res, function (item) {
-                students.push(item);
-            });            
-        });
+        //https://docs.angularjs.org/api/ng/service/$q
+        var _getAllStudents = function () {
+            var students = [];
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/students/').success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        }
 
-        return students;
-    }
+        studentServiceFactory.getAllStudents = _getAllStudents;
+        return studentServiceFactory;
+    }]);
 
-    studentServiceFactory.getAllStudents = _getAllStudents;
-    return studentServiceFactory;
-}]);
+})();

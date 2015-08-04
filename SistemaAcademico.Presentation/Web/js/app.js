@@ -14,8 +14,8 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
     $httpProvider.defaults.useXDomain = true;
     /* Fim - dasativar cache e status 304 - not modified*/
 
-
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'loginCtrl'
