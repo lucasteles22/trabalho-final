@@ -36,11 +36,12 @@
                 <div id="main-nav" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav" id="mainNav">
                         <li class="active"><a href="#home" class="scroll-link">Home</a></li>
-                        <li> <a href="#/students">Estudantes</a></li>
+                        <li><a href="#/students">Estudantes</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"> Olá {{authentication.userName}}!</a></li>
+                        <li data-ng-hide="!authentication.isAuth"><a href="#"> Olá {{authentication.userName}}!</a></li>
+                        <li data-ng-hide="!authentication.isAuth"> <a href="javascript:void(0);" data-ng-click="logOut()">Sair</a></li>
                         <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
                     </ul>
                 </div>
