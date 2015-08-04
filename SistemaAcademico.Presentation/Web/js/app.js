@@ -25,7 +25,7 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         controller: 'loginCtrl'
     }).
     when('/students', {
-        templateUrl: 'partials/students.html',
+        templateUrl: 'partials/students/index.html',
         controller: 'studentsListCtrl'
     }).
     otherwise({
