@@ -29,10 +29,9 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
     });
 }])
 
-//app.run(['authService', function (authService) {
-//    console.log('app.run')
-//    authService.fillAuthData();
-//}]);
+app.run(['authService', function (authService) {
+    authService.fillAuthData();
+}]);
 
 'user strict';
 
@@ -61,13 +60,7 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
 'user strict';
 
 app.controller('studentsListCtrl', function ($scope, studentService) {
-    activate();
-    var students = [];
-    function activate () {
-        var students = studentService.getAllStudents();
-        console.log(students);
-        $scope.students = students;
-    }
+    $scope.students = studentService.getAllStudents();
 });
 
 

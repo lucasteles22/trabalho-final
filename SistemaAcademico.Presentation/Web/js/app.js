@@ -29,7 +29,6 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
     });
 }])
 
-//app.run(['authService', function (authService) {
-//    console.log('app.run')
-//    authService.fillAuthData();
-//}]);
+app.run(['authService', function (authService) {
+    authService.fillAuthData();
+}]);
