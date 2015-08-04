@@ -90,13 +90,6 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
         }
     });
 
-'use strict';
-app.directive('studentsDirective', function () {
-    return {
-        templateUrl: 'partials/tpl/students.tpl.html'
-    }
-});
-
 (function () {
     'use strict';
     app.factory('authInterceptorService', ['$q', '$location', 'localStorageService', function ($q, $location, localStorageService) {
