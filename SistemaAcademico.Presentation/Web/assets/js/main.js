@@ -16,6 +16,10 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
 
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
+
+    //Interceptor request
+    $httpProvider.interceptors.push('authInterceptorService');
+
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'loginCtrl'
@@ -92,6 +96,38 @@ app.directive('studentsDirective', function () {
         templateUrl: 'partials/tpl/students.tpl.html'
     }
 });
+
+(function () {
+    'use strict';
+    app.factory('authInterceptorService', ['$q', '$location', 'localStorageService', function ($q, $location, localStorageService) {
+
+        var authInterceptorServiceFactory = {};
+
+        var _request = function (config) {
+            console.log('intercept')
+            config.headers = config.headers || {};
+
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                config.headers.Authorization = 'Bearer ' + authData.token;
+            }
+
+            return config;
+        }
+
+        var _responseError = function (rejection) {
+            if (rejection.status === 401) {
+                $location.path('/login');
+            }
+            return $q.reject(rejection);
+        }
+
+        authInterceptorServiceFactory.request = _request;
+        authInterceptorServiceFactory.responseError = _responseError;
+
+        return authInterceptorServiceFactory;
+    }]);
+})();
 
 'use strict';
 app.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {

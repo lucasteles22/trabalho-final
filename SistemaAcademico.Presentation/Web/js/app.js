@@ -16,6 +16,10 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
 
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
+
+    //Interceptor request
+    $httpProvider.interceptors.push('authInterceptorService');
+
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'loginCtrl'

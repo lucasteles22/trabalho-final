@@ -10,6 +10,7 @@ using System.Web.Http;
 namespace SistemaAcademico.Business.WebApi.Controllers
 {
     [RoutePrefix("api/students")]
+    [Authorize]
     public class StudentsController : ApiController
     {
         [HttpGet]
