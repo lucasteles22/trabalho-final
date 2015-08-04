@@ -5,7 +5,6 @@
         var authInterceptorServiceFactory = {};
 
         var _request = function (config) {
-            console.log('intercept')
             config.headers = config.headers || {};
 
             var authData = localStorageService.get('authorizationData');

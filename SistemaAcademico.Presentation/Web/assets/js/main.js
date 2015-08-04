@@ -97,7 +97,6 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
         var authInterceptorServiceFactory = {};
 
         var _request = function (config) {
-            console.log('intercept')
             config.headers = config.headers || {};
 
             var authData = localStorageService.get('authorizationData');
@@ -129,16 +128,19 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
     var _authentication = {
         isAuth: false,
-        userName: ""
+        userName: "",
+        roles: []
     };
 
     var _login = function (loginData) {
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
         var deferred = $q.defer();
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
+            var roles = JSON.parse(response.roles);
+            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, roles: roles });
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
+            _authentication.roles = roles;
             deferred.resolve(response);
         }).error(function (err, status) {
             _logOut();
@@ -151,6 +153,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         localStorageService.remove('authorizationData');
         _authentication.isAuth = false;
         _authentication.userName = "";
+        _authentication.roles = [];
     };
 
     var _fillAuthData = function () {
@@ -158,6 +161,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         if (authData) {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
+            _authentication.roles = authData.roles;
         }
     }
     authServiceFactory.login = _login;
