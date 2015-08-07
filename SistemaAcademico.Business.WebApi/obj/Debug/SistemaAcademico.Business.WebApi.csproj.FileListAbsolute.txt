@@ -197,3 +197,9 @@ C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.B
 C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\obj\Debug\SistemaAcademico.Business.WebApi.csprojResolveAssemblyReference.cache
 C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\obj\Debug\SistemaAcademico.Business.WebApi.dll
 C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\obj\Debug\SistemaAcademico.Business.WebApi.pdb
+C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\bin\SimpleInjector.dll
+C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\bin\SimpleInjector.Extensions.ExecutionContextScoping.dll
+C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\bin\SimpleInjector.Integration.WebApi.dll
+C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\bin\SimpleInjector.xml
+C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\bin\SimpleInjector.Extensions.ExecutionContextScoping.xml
+C:\Users\lucasteles\Documents\Projetos\Pessoal\trabalho-final\SistemaAcademico.Business.WebApi\bin\SimpleInjector.Integration.WebApi.xml

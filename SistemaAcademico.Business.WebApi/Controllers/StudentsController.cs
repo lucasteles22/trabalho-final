@@ -13,16 +13,17 @@ namespace SistemaAcademico.Business.WebApi.Controllers
     [Authorize]
     public class StudentsController : ApiController
     {
+        private ApplicationDbContext _db;
+        public StudentsController(ApplicationDbContext db)
+        {
+            this._db = db;
+        }
+
         [HttpGet]
         [Route("")]
         public IEnumerable<object> Get()
         {
-            IEnumerable<object> students = new List<object>();
-            using (var db = new ApplicationDbContext())
-            {
-                students = db.Students.OrderBy(x => x.UserName).Select(x => new { UserName = x.UserName, Id = x.Id }).ToList();
-            }
-            return students;
+            return _db.Students.OrderBy(x => x.UserName).Select(x => new { UserName = x.UserName, Id = x.Id }).ToList(); ;
         }
 
         [HttpGet]
@@ -30,15 +31,13 @@ namespace SistemaAcademico.Business.WebApi.Controllers
         [AllowAnonymous]
         public IHttpActionResult GetInfo(string userName)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                var student = db.Students
+            var student = _db.Students
                                 .Where(x => x.UserName == userName)
-                                .Select(x => new { UserName = userName, Email = x.Email})
+                                .Select(x => new { UserName = userName, Email = x.Email })
                                 .FirstOrDefault();
-                if (student != null)
-                    return Ok(student);
-            }
+            if (student != null)
+                return Ok(student);
+
             return NotFound();
         }
     }
