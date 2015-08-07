@@ -17,17 +17,17 @@ namespace SistemaAcademico.Business.WebApi.Models
         public string UserId { get; private set; }
         public virtual Student Student { get; private set; }
 
-        public int ClassId { get; private set; }
+        public int SchoolClassId { get; private set; }
         public virtual SchoolClass SchoolClass { get; private set; }
 
         #region ctor
         protected Score()
         { }
 
-        public Score(string userId, int classId, double value)
+        public Score(string studentId, int schoolClassId, double value)
         {
-            this.UserId = userId;
-            this.ClassId = classId;
+            this.UserId = studentId;
+            this.SchoolClassId = schoolClassId;
             this.Value = value;
         }
         #endregion

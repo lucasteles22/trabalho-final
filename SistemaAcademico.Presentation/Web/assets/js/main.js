@@ -24,9 +24,13 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/login.html',
         controller: 'loginCtrl'
     }).
-    when('/students', {
+    when('/student/info', {
         templateUrl: 'partials/students/index.html',
-        controller: 'studentsListCtrl'
+        controller: 'studentsHomeCtrl'
+    }).
+    when('/student/info/scores', {
+        templateUrl: 'partials/students/scores.html',
+        controller: 'studentsScoresCtrl'
     }).
     otherwise({
         redirectTo: '/login'
@@ -57,7 +61,7 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     $scope.login = function (user) {
         authService.login(user).then(function (response) {
             $scope.authentication = authService.authentication;
-            $location.path('/students');
+            $location.path('/student/info');
         },
          function (err) {
              $scope.message = err.error_description;
@@ -68,18 +72,29 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
 
 (function () {
     'user strict';
-    app.controller('studentsListCtrl', function ($scope, studentService) {
-        studentService.getAllStudents().then(function (response) {
-            var students = [];
-            angular.forEach(response, function (item) {
-                students.push(item);
-            });
-            $scope.students = students;
+    app.controller('studentsHomeCtrl', function ($scope, studentService, authService) {
+        studentService.getInfoStudent(authService.authentication.userName).then(function (response) {
+            $scope.student = response;
         },
         function (err) {
             //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+            //usuario nao encontrado
             console.log(err)
         });
+    });
+})();
+
+(function () {
+    'user strict';
+    app.controller('studentsScoresCtrl', function ($scope, studentService, authService) {
+        //studentService.getInfoStudent(authService.authentication.userName).then(function (response) {
+        //    $scope.student = response;
+        //},
+        //function (err) {
+        //    //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+        //    //usuario nao encontrado
+        //    console.log(err)
+        //});
     });
 })();
 
@@ -187,9 +202,20 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
                 deferred.reject(err);
             });
             return deferred.promise;
-        }
+        };
+
+        var _getInfoStudent = function (userName) {
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/students/info/?username=' + userName).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
 
         studentServiceFactory.getAllStudents = _getAllStudents;
+        studentServiceFactory.getInfoStudent = _getInfoStudent;
         return studentServiceFactory;
     }]);
 

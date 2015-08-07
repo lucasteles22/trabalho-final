@@ -24,5 +24,22 @@ namespace SistemaAcademico.Business.WebApi.Controllers
             }
             return students;
         }
+
+        [HttpGet]
+        [Route("info")]
+        [AllowAnonymous]
+        public IHttpActionResult GetInfo(string userName)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var student = db.Students
+                                .Where(x => x.UserName == userName)
+                                .Select(x => new { UserName = userName, Email = x.Email})
+                                .FirstOrDefault();
+                if (student != null)
+                    return Ok(student);
+            }
+            return NotFound();
+        }
     }
 }

@@ -41,5 +41,14 @@ namespace SistemaAcademico.Business.WebApi.Models
         }
         #endregion
 
+        public void AddStudent(Student student)
+        {
+            this.Students.Add(student);
+        }
+
+        public void AddScore(Score score)
+        {
+            this.Scores.Add(score);
+        }
     }
 }

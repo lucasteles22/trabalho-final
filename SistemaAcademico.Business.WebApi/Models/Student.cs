@@ -28,5 +28,6 @@ namespace SistemaAcademico.Business.WebApi.Models
             this.Scores = new List<Score>();
         }
         #endregion
+
     }
 }

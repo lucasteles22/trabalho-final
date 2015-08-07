@@ -14,18 +14,18 @@ namespace SistemaAcademico.Business.WebApi.Models
         public string UserId { get; private set; }
         public virtual Coordinator Coordinator { get; private set; }
 
-        public virtual ICollection<Subject> Subjects { get; private set; }
+        //public virtual ICollection<Subject> Subjects { get; private set; }
         public virtual ICollection<Student> Students { get; private set; }
 
         #region ctor
         protected Course()
         { }
 
-        public Course(string name, string userId)
+        public Course(string name, string coordinatorId)
         {
             this.Name = name;
-            this.UserId = userId;
-            this.Subjects = new List<Subject>();
+            this.UserId = coordinatorId;
+            //this.Subjects = new List<Subject>();
             this.Students = new List<Student>();
         }
         #endregion

@@ -24,9 +24,13 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/login.html',
         controller: 'loginCtrl'
     }).
-    when('/students', {
+    when('/student/info', {
         templateUrl: 'partials/students/index.html',
-        controller: 'studentsListCtrl'
+        controller: 'studentsHomeCtrl'
+    }).
+    when('/student/info/scores', {
+        templateUrl: 'partials/students/scores.html',
+        controller: 'studentsScoresCtrl'
     }).
     otherwise({
         redirectTo: '/login'

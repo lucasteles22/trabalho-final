@@ -14,7 +14,7 @@ namespace SistemaAcademico.Business.WebApi.Models.Mapping
 
             HasRequired(x => x.SchoolClass)
                 .WithMany(u => u.Scores)
-                .HasForeignKey(x => x.ClassId)
+                .HasForeignKey(x => x.SchoolClassId)
                 .WillCascadeOnDelete(true);
 
             HasRequired(x => x.Student)

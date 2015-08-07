@@ -15,7 +15,7 @@ namespace SistemaAcademico.Business.WebApi.Models
         public string Name { get; private set; }
 
         public virtual ICollection<SchoolClass> SchoolClasses { get; private set; }
-        public virtual ICollection<Course> Course { get; private set; }
+        //public virtual ICollection<Course> Course { get; private set; }
 
         #region ctor
         protected Subject()
@@ -25,8 +25,14 @@ namespace SistemaAcademico.Business.WebApi.Models
         {
             this.Name = name;
             this.SchoolClasses = new List<SchoolClass>();
-            this.Course = new List<Course>();
+            //this.Course = new List<Course>();
         }
         #endregion
+
+
+        public void AddSchoolClass(SchoolClass schoolClass)
+        {
+            this.SchoolClasses.Add(schoolClass);
+        }
     }
 }
