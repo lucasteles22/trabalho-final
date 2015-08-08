@@ -1,13 +1,42 @@
 ﻿
-<div class="row>">
+<div class="row">
     <div class="col-sm-12">
         <p><b>Nome: </b>{{student.UserName}}</p>
         <p><b>E-mail: </b>{{student.Email}}</p>
     </div>
 </div>
-
+<br />
 <div class="row">
     <div class="col-sm-12">
-        <a ng-href="#/student/info/scores" class="btn btn-primary">Verficar notas</a>
+        <b>Filtrar por disciplina</b>
+    </div>
+    <div class="col-sm-6 col-md-4 col-xs-12">
+        <select ng-change="filterBySubject()" class="form-control" ng-options="item.Subject as item.Subject for item in student.Scores track by item.Subject" ng-model="subjectSelected">
+            <option value="">Selecione uma disciplina</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-md-4 col-xs-12">
+
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Turma</th>
+                    <th>Disciplina</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in student.Scores">
+                    <td>{{x.SchoolClass}}</td>
+                    <td>{{x.Subject}}</td>
+                    <td>{{x.Value}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

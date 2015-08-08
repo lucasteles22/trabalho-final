@@ -33,8 +33,19 @@ namespace SistemaAcademico.Business.WebApi.Controllers
         {
             var student = _db.Students
                                 .Where(x => x.UserName == userName)
-                                .Select(x => new { UserName = userName, Email = x.Email })
+                                .Select(x => new 
+                                { 
+                                    UserName = userName, 
+                                    Email = x.Email, 
+                                    Scores = x.Scores.Select(y => new 
+                                    {
+                                        Value = y.Value, 
+                                        Subject = y.SchoolClass.Subject.Name, 
+                                        SchoolClass = y.SchoolClass.Name 
+                                    }).ToList()
+                                })
                                 .FirstOrDefault();
+
             if (student != null)
                 return Ok(student);
 
