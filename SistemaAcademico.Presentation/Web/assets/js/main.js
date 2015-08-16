@@ -44,6 +44,10 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/secretaries/index.html',
         controller: 'secretariesHomeCtrl'
     }).
+    when('/secretary/info-by-student/:param1', {
+        templateUrl: 'partials/secretaries/student.html',
+        controller: 'secretariesInfoStudentCtrl'
+    }).
     otherwise({
         redirectTo: '/login'
     });
@@ -164,6 +168,22 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     'user strict';
     app.controller('secretariesHomeCtrl', function ($scope, $filter, secretaryService, authService, dateFilter) {
         secretaryService.getAllStudents().then(function (response) {
+            console.log(response)
+            $scope.secretary = response;
+        },
+        function (err) {
+            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+            //usuario nao encontrado
+            console.log(err)
+        });
+    });
+})();
+
+(function () {
+    'user strict';
+    app.controller('secretariesInfoStudentCtrl', function ($scope, $filter, $routeParams, secretaryService, authService, dateFilter) {
+        var studentUserName = $routeParams.param1;
+        secretaryService.getInfoStudent(studentUserName).then(function (response) {
             console.log(response)
             $scope.secretary = response;
         },
@@ -437,8 +457,19 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
             return deferred.promise;
         };
 
+        var _getInfoStudent = function (studentUserName) {
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/secretaries/get-info-student/?studentUserName=' + studentUserName).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
+
 
         secretaryServiceFactory.getAllStudents = _getAllStudents;
+        secretaryServiceFactory.getInfoStudent = _getInfoStudent;
         return secretaryServiceFactory;
     }]);
 

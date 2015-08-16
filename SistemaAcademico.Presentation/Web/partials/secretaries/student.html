@@ -1,0 +1,22 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Turma</th>
+                    <th>Disciplina</th>
+                    <th>Período</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in secretary.Scores">
+                    <td>{{x.SchoolClass}}</td>
+                    <td>{{x.Subject}}</td>
+                    <td>{{x.StartDate | date:'dd/MM/yyyy'}} a {{x.EndDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{x.Value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

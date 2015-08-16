@@ -44,6 +44,10 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/secretaries/index.html',
         controller: 'secretariesHomeCtrl'
     }).
+    when('/secretary/info-by-student/:param1', {
+        templateUrl: 'partials/secretaries/student.html',
+        controller: 'secretariesInfoStudentCtrl'
+    }).
     otherwise({
         redirectTo: '/login'
     });
