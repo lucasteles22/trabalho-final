@@ -28,26 +28,18 @@
 <br />
 <div id="subject-filter">
     <div class="row">
-        <div class="col-sm-12">
-            <b>Disciplina</b>
-        </div>
-    </div>
-    <br />
-    <div class="row">
         <div class="col-sm-6 col-md-4 col-xs-12">
-            <select ng-change="filterBySubject()" class="form-control" ng-options="item.Subject as item.Subject for item in student.Scores track by item.Subject" ng-model="subjectSelected">
+            <!--<select ng-change="filterBySubject()" class="form-control" ng-options="item.Subject as item.Subject for item in student.Scores track by item.Subject" ng-model="subjectSelected">
                 <option value="">Selecione uma disciplina</option>
-            </select>
+            </select>-->
+            <div class="form-group">
+                <label for="subjectInput">Disciplina</label>
+                <input type="text" class="form-control" id="subjectInput" placeholder="Digite a disciplina" ng-model="searchSubject">
+            </div>
         </div>
     </div>
 </div>
 <div id="date-filter" style="display:none">
-    <div class="row">
-        <div class="col-sm-12">
-            <b>Data</b>
-        </div>
-    </div>
-    <br />
     <div class="row">
         <div class="col-xs-12">
             <form class="form-inline" name="formFilterDate">
@@ -73,13 +65,15 @@
                 <tr>
                     <th>Turma</th>
                     <th>Disciplina</th>
+                    <th>Período</th>
                     <th>Nota</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in student.Scores">
+                <tr ng-repeat="x in student.Scores | filter:searchSubject">
                     <td>{{x.SchoolClass}}</td>
                     <td>{{x.Subject}}</td>
+                    <td>{{x.StartDate | date:'dd/MM/yyyy'}} a {{x.EndDate | date:'dd/MM/yyyy'}}</td>
                     <td>{{x.Value}}</td>
                 </tr>
             </tbody>

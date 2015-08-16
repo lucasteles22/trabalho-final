@@ -76,7 +76,6 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     app.controller('studentsHomeCtrl', function ($scope, studentService, authService, dateFilter) {
         studentService.getInfoStudent(authService.authentication.userName).then(function (response) {
             $scope.student = response;
-
         },
         function (err) {
             //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
@@ -91,6 +90,7 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
                 $('#subject-filter').show('slow');
                 $('#date-filter').hide('slow');
             } else {
+                $scope.searchSubject = '';
                 $('#date-filter').show('slow');
                 $('#subject-filter').hide('slow');
             }
@@ -103,7 +103,14 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
         //Opção escolhida - filtro por disciplina
         $scope.filterBySubject = function () {
             if ($scope.subjectSelected != null)
-                console.log($scope.subjectSelected)
+                studentService.getInfoStudentBySubject(authService.authentication.userName, $scope.subjectSelected).then(function (response) {
+                $scope.student = response;
+            },
+            function (err) {
+                //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+                //usuario nao encontrado
+                console.log(err)
+            });
 
         };
 
@@ -303,9 +310,19 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
             });
             return deferred.promise;
         };
+        var _getInfoStudentBySubject = function (userName, subject) {
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/students/info-by-subject/?username=' + userName + '&subject=' + subject).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
 
         studentServiceFactory.getAllStudents = _getAllStudents;
         studentServiceFactory.getInfoStudent = _getInfoStudent;
+        studentServiceFactory.getInfoStudentBySubject = _getInfoStudentBySubject;
         return studentServiceFactory;
     }]);
 

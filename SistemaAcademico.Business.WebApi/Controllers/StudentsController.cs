@@ -33,15 +33,17 @@ namespace SistemaAcademico.Business.WebApi.Controllers
         {
             var student = _db.Students
                                 .Where(x => x.UserName == userName)
-                                .Select(x => new 
-                                { 
-                                    UserName = userName, 
-                                    Email = x.Email, 
-                                    Scores = x.Scores.Select(y => new 
+                                .Select(x => new
+                                {
+                                    UserName = userName,
+                                    Email = x.Email,
+                                    Scores = x.Scores.Select(y => new
                                     {
-                                        Value = y.Value, 
-                                        Subject = y.SchoolClass.Subject.Name, 
-                                        SchoolClass = y.SchoolClass.Name 
+                                        Value = y.Value,
+                                        Subject = y.SchoolClass.Subject.Name,
+                                        SchoolClass = y.SchoolClass.Name,
+                                        StartDate = y.SchoolClass.StarDate,
+                                        EndDate = y.SchoolClass.EndDate
                                     }).ToList()
                                 })
                                 .FirstOrDefault();
