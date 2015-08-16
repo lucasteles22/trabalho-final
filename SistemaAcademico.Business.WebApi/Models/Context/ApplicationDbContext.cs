@@ -24,7 +24,7 @@ namespace SistemaAcademico.Business.WebApi.Models.Context
         public DbSet<SchoolClass> SchoolClasses { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Course> Courses { get; set; }
- 
+
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

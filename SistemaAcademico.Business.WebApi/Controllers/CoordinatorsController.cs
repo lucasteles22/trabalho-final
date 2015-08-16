@@ -81,7 +81,7 @@ namespace SistemaAcademico.Business.WebApi.Controllers
                                                 {
                                                     Student = y.Students.Select(s => new
                                                     {
-                                                        UserName = userName,
+                                                        UserName = studentUserName,
                                                         Email = s.Email,
                                                         Scores = s.Scores.OrderBy(j => j.SchoolClass.StarDate).Select(k => new
                                                         {

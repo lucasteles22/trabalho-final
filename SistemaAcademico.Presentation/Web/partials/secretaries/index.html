@@ -1,1 +1,52 @@
-﻿<h1>Secretaries</h1>
+﻿<div class="row">
+    <div class="col-md-12">
+        <h4>Filtro:</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-4 col-xs-12">
+        <div class="form-group">
+            <label for="subjectInput">Aluno</label>
+            <input type="text" class="form-control" id="subjectStudent" placeholder="Digite o login" ng-model="searchStudent">
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Login
+                    </th>
+                    <th>
+                        Curso
+                    </th>
+                    <th class="text-center">
+                        Quantidade disciplinas
+                    </th>
+                    <th class="text-center">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in secretary | filter:searchStudent">
+                    <td class="text-center">
+                        {{x.UserName}}
+                    </td>
+                    <td>
+                        {{x.Course}}
+                    </td>
+                    <td class="text-center">
+                        {{x.AmountSubject}}
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-primary" href="/#/coordinator/info-by-student/{{x.Name}}">Verificar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

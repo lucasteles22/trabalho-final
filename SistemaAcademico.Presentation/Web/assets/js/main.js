@@ -162,12 +162,17 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
 
 (function () {
     'user strict';
-    app.controller('secretariesHomeCtrl', function ($scope, $filter, studentService, authService, dateFilter) {
-
+    app.controller('secretariesHomeCtrl', function ($scope, $filter, secretaryService, authService, dateFilter) {
+        secretaryService.getAllStudents().then(function (response) {
+            console.log(response)
+            $scope.secretary = response;
+        },
+        function (err) {
+            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+            //usuario nao encontrado
+            console.log(err)
+        });
     });
-
-
-
 })();
 
 (function () {
@@ -411,6 +416,30 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         coordinatorServiceFactory.getInfoByCourse = _getInfoByCourse;
         coordinatorServiceFactory.getInfoByStudent = _getInfoByStudent;
         return coordinatorServiceFactory;
+    }]);
+
+})();
+
+(function () {
+    'use strict';
+    app.factory('secretaryService', ['$http', '$q', function ($http, $q) {
+        var secretaryServiceFactory = {};
+        var serviceBase = 'http://localhost:50689/';
+        //https://docs.angularjs.org/api/ng/service/$q
+
+        var _getAllStudents = function () {
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/secretaries/get-all-students/').success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
+
+
+        secretaryServiceFactory.getAllStudents = _getAllStudents;
+        return secretaryServiceFactory;
     }]);
 
 })();
