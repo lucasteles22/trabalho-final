@@ -28,7 +28,6 @@ namespace SistemaAcademico.Business.WebApi.Controllers
 
         [HttpGet]
         [Route("info")]
-        [AllowAnonymous]
         public IHttpActionResult GetInfo(string userName)
         {
             var student = _db.Students

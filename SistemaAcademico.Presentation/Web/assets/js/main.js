@@ -28,9 +28,13 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/students/index.html',
         controller: 'studentsHomeCtrl'
     }).
-    when('/student/info/scores', {
-        templateUrl: 'partials/students/scores.html',
-        controller: 'studentsScoresCtrl'
+    when('/coordinator/info', {
+        templateUrl: 'partials/coordinators/index.html',
+        controller: 'coordinatorsHomeCtrl'
+    }).
+    when('/secretary/info', {
+        templateUrl: 'partials/secretaries/index.html',
+        controller: 'secretariesHomeCtrl'
     }).
     otherwise({
         redirectTo: '/login'
@@ -40,6 +44,16 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
 app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
+
+(function () {
+    'user strict';
+    app.controller('coordinatorsHomeCtrl', function ($scope, $filter, studentService, authService, dateFilter) {
+        
+    });
+
+  
+
+})();
 
 'user strict';
 
@@ -61,7 +75,14 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     $scope.login = function (user) {
         authService.login(user).then(function (response) {
             $scope.authentication = authService.authentication;
-            $location.path('/student/info');
+            if ($.inArray('student',  $scope.authentication.roles) > -1) {
+                $location.path('/student/info');
+            } else if ($.inArray('coordinator',  $scope.authentication.roles) > -1) {
+                $location.path('/coordinator/info');
+            } else { //secretary
+                $location.path('/secretary/info');
+            }
+            
         },
          function (err) {
              $scope.message = err.error_description;
@@ -69,6 +90,16 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     }
 });
 
+
+(function () {
+    'user strict';
+    app.controller('secretariesHomeCtrl', function ($scope, $filter, studentService, authService, dateFilter) {
+
+    });
+
+
+
+})();
 
 (function () {
     'user strict';
@@ -161,20 +192,6 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     //    };
     //});
 
-})();
-
-(function () {
-    'user strict';
-    app.controller('studentsScoresCtrl', function ($scope, studentService, authService) {
-        //studentService.getInfoStudent(authService.authentication.userName).then(function (response) {
-        //    $scope.student = response;
-        //},
-        //function (err) {
-        //    //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-        //    //usuario nao encontrado
-        //    console.log(err)
-        //});
-    });
 })();
 
     'use strict';
