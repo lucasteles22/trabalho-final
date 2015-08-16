@@ -52,7 +52,7 @@
                     <label for="exampleInputEmail2">Data final</label>
                     <input ng-model="endDateStr" biggerdate type="date" class="form-control" required>
                 </div>
-                <button type="submit" ng-disabled="verifyDate()" ng-click="filterByDate()" class="btn btn-default">Filtrar</button>
+                <button type="submit" ng-disabled="verifyDate()" ng-click="filterByDate(startDateStr, endDateStr)" class="btn btn-default">Filtrar</button>
             </form>
         </div>
     </div>
@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in student.Scores | filter:searchSubject">
+                <tr ng-repeat="x in student.Scores | filter:searchSubject | filter:searchByDate:endDateStr">
                     <td>{{x.SchoolClass}}</td>
                     <td>{{x.Subject}}</td>
                     <td>{{x.StartDate | date:'dd/MM/yyyy'}} a {{x.EndDate | date:'dd/MM/yyyy'}}</td>

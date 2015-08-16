@@ -37,7 +37,7 @@ namespace SistemaAcademico.Business.WebApi.Controllers
                                 {
                                     UserName = userName,
                                     Email = x.Email,
-                                    Scores = x.Scores.Select(y => new
+                                    Scores = x.Scores.OrderBy(y => y.SchoolClass.StarDate).Select(y => new
                                     {
                                         Value = y.Value,
                                         Subject = y.SchoolClass.Subject.Name,

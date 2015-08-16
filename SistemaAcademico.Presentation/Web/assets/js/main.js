@@ -41,7 +41,6 @@ app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
 
-
 'user strict';
 
 app.controller('headerCtrl', function ($scope, $location, authService) {
@@ -73,9 +72,11 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
 
 (function () {
     'user strict';
-    app.controller('studentsHomeCtrl', function ($scope, studentService, authService, dateFilter) {
+    app.controller('studentsHomeCtrl', function ($scope, $filter, studentService, authService, dateFilter) {
+        var allScores = [];
         studentService.getInfoStudent(authService.authentication.userName).then(function (response) {
             $scope.student = response;
+            allScores = response.Scores;
         },
         function (err) {
             //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
@@ -89,30 +90,13 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
             if ($scope.filter.option == 'subject') {
                 $('#subject-filter').show('slow');
                 $('#date-filter').hide('slow');
+                $scope.student.Scores = allScores;
             } else {
                 $scope.searchSubject = '';
                 $('#date-filter').show('slow');
                 $('#subject-filter').hide('slow');
             }
         }
-        //Opções tipo de filtro
-        $scope.filter = {
-            option: 'subject'
-        };
-
-        //Opção escolhida - filtro por disciplina
-        $scope.filterBySubject = function () {
-            if ($scope.subjectSelected != null)
-                studentService.getInfoStudentBySubject(authService.authentication.userName, $scope.subjectSelected).then(function (response) {
-                $scope.student = response;
-            },
-            function (err) {
-                //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-                //usuario nao encontrado
-                console.log(err)
-            });
-
-        };
 
         //Opção escolhida - filtro por data
         $scope.verifyDate = function () {
@@ -120,7 +104,7 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
                 var startDateChoosed = new Date($scope.startDateStr);
                 var endDateChoosed = new Date($scope.endDateStr);
                 if (startDateChoosed <= endDateChoosed) {
-                    console.log('post');
+                    //console.log($scope.student[0])
                     return false;
                 } else {
                     console.log('data inicial menor que final')
@@ -128,11 +112,9 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
             }
             return true;
         }
-
-        $scope.filterByDate = function () {
-            //post;
+        $scope.filterByDate = function (s, e) {
+            $scope.student.Scores = $filter('searchByDate')(allScores, $scope.startDateStr, $scope.endDateStr);
         }
-
     });
 
     app.directive('smallerdate', function () {
@@ -140,6 +122,7 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$validators.smallerdate = function (modelValue, viewValue) {
+                    return true;
                     if (ctrl.$isEmpty(modelValue)) {
                         // consider empty models to be valid
                         return true;
@@ -178,7 +161,6 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     //    };
     //});
 
-
 })();
 
 (function () {
@@ -201,6 +183,24 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
             templateUrl: 'partials/tpl/login.tpl.html'
         }
     });
+
+(function () {
+    app.filter("searchByDate", function () {
+        return function (items, start, end) {
+            var arrayToReturn = [];
+            for (var i = 0; i < items.length; i++) {
+                var s = new Date(items[i].StartDate);
+                var st = new Date(start);
+                var e = new Date(end);
+                s.setDate(s.getDate() + 1);
+                if (s >= st && s <= e)
+                    arrayToReturn.push(items[i]);
+            }
+            return arrayToReturn
+        };
+    });
+
+})();
 
 (function () {
     'use strict';
