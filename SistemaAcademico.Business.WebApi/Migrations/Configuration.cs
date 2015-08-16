@@ -31,13 +31,15 @@ namespace SistemaAcademico.Business.WebApi.Migrations
 
             #region Coordenadores
             AddCoordinator(context, "coordenador1", "coodenador1@teste.com", "123456");
+            AddCoordinator(context, "coordenador2", "coodenador2@teste.com", "123456");
             #endregion
 
             #region Cursos
-            var coordinatorId = context.Coordinators.FirstOrDefault().Id;
-            AddCourse(context, CourseName.CIENCIASCOMPUTACAO, coordinatorId);
-            AddCourse(context, CourseName.SISTEMASINFORMACAO, coordinatorId);
-            AddCourse(context, CourseName.ENGENHARIACOMPUTACAO, coordinatorId);
+            var coordinatorFirstId = context.Coordinators.FirstOrDefault(x => x.UserName == "coordenador1").Id;
+            var coordinatorSecondId = context.Coordinators.FirstOrDefault(x => x.UserName == "coordenador2").Id;
+            AddCourse(context, CourseName.CIENCIASCOMPUTACAO, coordinatorFirstId);
+            AddCourse(context, CourseName.SISTEMASINFORMACAO, coordinatorFirstId);
+            AddCourse(context, CourseName.ENGENHARIACOMPUTACAO, coordinatorSecondId);
             #endregion
 
             #region Estudantes

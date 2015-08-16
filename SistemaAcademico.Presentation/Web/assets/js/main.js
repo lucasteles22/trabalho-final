@@ -186,7 +186,9 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
         },
         function (err) {
         });
-
+        $scope.filter = {
+            option: 'subject'
+        };
 
         //Escolhe o tipo de filtro
         $scope.filterSelected = function () {
@@ -213,54 +215,12 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
             return true;
         }
         $scope.filterByDate = function (s, e) {
-            $scope.student.Scores = $filter('searchByDate')(allScores, $scope.startDateStr, $scope.endDateStr);
+            if (new Date($scope.startDateStr) <= new Date($scope.endDateStr))
+                $scope.student.Scores = $filter('searchByDate')(allScores, $scope.startDateStr, $scope.endDateStr);
+            else
+                alert("Data inicial maior que data final. Por favor, altere!");
         }
     });
-
-    app.directive('smallerdate', function () {
-        return {
-            require: 'ngModel',
-            link: function (scope, elm, attrs, ctrl) {
-                ctrl.$validators.smallerdate = function (modelValue, viewValue) {
-                    return true;
-                    if (ctrl.$isEmpty(modelValue)) {
-                        // consider empty models to be valid
-                        return true;
-                    }
-
-                    if (modelValue <= scope.endDateStr) {
-                        // it is valid
-                        return true;
-                    }
-
-                    // it is invalid
-                    return false;
-                };
-            }
-        };
-    });
-    //app.directive('biggerdate', function () {
-    //    return {
-    //        require: 'ngModel',
-    //        link: function (scope, elm, attrs, ctrl) {
-    //            ctrl.$validators.biggerdate = function (modelValue, viewValue) {
-    //                if (ctrl.$isEmpty(modelValue)) {
-    //                    // consider empty models to be valid
-    //                    return true;
-    //                }
-
-    //                if (modelValue > scope.startDateStr) {
-    //                    // it is valid
-    //                    return true;
-    //                }
-
-    //                // it is invalid
-    //                return false;
-    //            };
-    //        }
-    //    };
-    //});
-
 })();
 
     'use strict';
