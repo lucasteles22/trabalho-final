@@ -25,9 +25,20 @@
             return deferred.promise;
         };
 
+        var _getInfoByStudent = function (userName, studentUserName) {
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/coordinators/info-by-student/?username=' + userName + '&studentUserName=' + studentUserName).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
+
 
         coordinatorServiceFactory.getInfoCoordinator = _getInfoCoordinator;
         coordinatorServiceFactory.getInfoByCourse = _getInfoByCourse;
+        coordinatorServiceFactory.getInfoByStudent = _getInfoByStudent;
         return coordinatorServiceFactory;
     }]);
 

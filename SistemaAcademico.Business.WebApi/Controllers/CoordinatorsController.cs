@@ -67,5 +67,40 @@ namespace SistemaAcademico.Business.WebApi.Controllers
 
             return NotFound();
         }
+        [HttpGet]
+        [Route("info-by-student")]
+        public IHttpActionResult GetInfoByStudent(string userName, string studentUserName)
+        {
+            var coordinator = _db.Coordinators
+                                .Where(x => x.UserName == userName)
+                                .Select(x => new
+                                {
+                                    Info = x.Courses
+                                                .Where(y => y.Students.Any(z => z.UserName == studentUserName))
+                                                .Select(y => new
+                                                {
+                                                    Student = y.Students.Select(s => new
+                                                    {
+                                                        UserName = userName,
+                                                        Email = s.Email,
+                                                        Scores = s.Scores.OrderBy(j => j.SchoolClass.StarDate).Select(k => new
+                                                        {
+                                                            Value = k.Value,
+                                                            Subject = k.SchoolClass.Subject.Name,
+                                                            SchoolClass = k.SchoolClass.Name,
+                                                            StartDate = k.SchoolClass.StarDate,
+                                                            EndDate = k.SchoolClass.EndDate
+                                                        }).ToList()
+                                                    })
+                                                    .FirstOrDefault()
+                                                })
+                                                .FirstOrDefault()
+                                })
+                                .FirstOrDefault();
+            if (coordinator != null)
+                return Ok(coordinator);
+
+            return NotFound();
+        }
     }
 }

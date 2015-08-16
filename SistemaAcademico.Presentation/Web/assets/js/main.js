@@ -36,6 +36,10 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/coordinators/course.html',
         controller: 'coordinatorInfoCourseCtrl'
     }).
+    when('/coordinator/info-by-student/:param1', {
+        templateUrl: 'partials/coordinators/student.html',
+        controller: 'coordinatorInfoStudentCtrl'
+    }).
     when('/secretary/info', {
         templateUrl: 'partials/secretaries/index.html',
         controller: 'secretariesHomeCtrl'
@@ -57,7 +61,7 @@ app.run(['authService', function (authService) {
     app.controller('coordinatorInfoCourseCtrl', function ($scope, $filter, $routeParams, coordinatorService, authService, dateFilter) {
         var courseId = $routeParams.param1;
         coordinatorService.getInfoByCourse(authService.authentication.userName, courseId).then(function (response) {
-            console.log(courseId);
+           
             console.log(response)
             $scope.coordinator = response;
         },
@@ -66,6 +70,43 @@ app.run(['authService', function (authService) {
             //usuario nao encontrado
             console.log(err)
         });
+    });
+})();
+
+
+(function () {
+    'user strict';
+    app.controller('coordinatorInfoStudentCtrl', function ($scope, $filter, $routeParams, coordinatorService, authService, dateFilter) {
+        var studentUserName = $routeParams.param1;
+        var allScores = [];
+        coordinatorService.getInfoByStudent(authService.authentication.userName, studentUserName).then(function (response) {
+            $scope.coordinator = response;
+            allScores = response.Info.Student.Scores;
+        },
+        function (err) {
+            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+            //usuario nao encontrado
+            console.log(err)
+        });
+        $scope.filter = {
+            option: 'subject'
+        };
+
+        $scope.filterByDate = function (s, e) {
+            $scope.coordinator.Info.Student.Scores = $filter('searchByDate')(allScores, $scope.startDateStr, $scope.endDateStr);
+        }
+
+        $scope.filterSelected = function () {
+            if ($scope.filter.option == 'subject') {
+                $('#subject-filter').show('slow');
+                $('#date-filter').hide('slow');
+                $scope.coordinator.Info.Student.Scores = allScores;
+            } else {
+                $scope.searchSubject = '';
+                $('#date-filter').show('slow');
+                $('#subject-filter').hide('slow');
+            }
+        }
     });
 })();
 
@@ -355,9 +396,20 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
             return deferred.promise;
         };
 
+        var _getInfoByStudent = function (userName, studentUserName) {
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/coordinators/info-by-student/?username=' + userName + '&studentUserName=' + studentUserName).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
+
 
         coordinatorServiceFactory.getInfoCoordinator = _getInfoCoordinator;
         coordinatorServiceFactory.getInfoByCourse = _getInfoByCourse;
+        coordinatorServiceFactory.getInfoByStudent = _getInfoByStudent;
         return coordinatorServiceFactory;
     }]);
 
