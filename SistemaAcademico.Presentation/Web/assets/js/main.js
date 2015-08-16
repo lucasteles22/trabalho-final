@@ -47,12 +47,27 @@ app.run(['authService', function (authService) {
 
 (function () {
     'user strict';
-    app.controller('coordinatorsHomeCtrl', function ($scope, $filter, studentService, authService, dateFilter) {
-        
+    app.controller('coordinatorsHomeCtrl', function ($scope, $filter, coordinatorService, authService, dateFilter) {
+        coordinatorService.getInfoCoordinator(authService.authentication.userName).then(function (response) {
+            $scope.coordinator = response;
+        },
+        function (err) {
+            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+            //usuario nao encontrado
+            console.log(err)
+        });
+
+        $scope.selectCourse = function (courseId) {
+            coordinatorService.getInfoByCourse(authService.authentication.userName, courseId).then(function (response) {
+                console.log(response)
+            },
+            function (err) {
+                //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+                //usuario nao encontrado
+                console.log(err)
+            });
+        }
     });
-
-  
-
 })();
 
 'user strict';
@@ -302,21 +317,47 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 }]);
 (function () {
     'use strict';
-    app.factory('studentService', ['$http', '$q', function ($http, $q) {
-        var studentServiceFactory = {};
+    app.factory('coordinatorService', ['$http', '$q', function ($http, $q) {
+        var coordinatorServiceFactory = {};
         var serviceBase = 'http://localhost:50689/';
 
         //https://docs.angularjs.org/api/ng/service/$q
-        var _getAllStudents = function () {
-            var students = [];
+        var _getInfoCoordinator = function (userName) {
             var deferred = $q.defer();
-            $http.get(serviceBase + 'api/students/').success(function (res) {
+            $http.get(serviceBase + 'api/coordinators/info/?username=' + userName).success(function (res) {
                 deferred.resolve(res);
             }).error(function (err, status) {
                 deferred.reject(err);
             });
             return deferred.promise;
         };
+
+        var _getInfoByCourse = function (userName, courseId) {
+            var deferred = $q.defer();
+            $http.get(serviceBase + 'api/coordinators/info-by-course/?username=' + userName + '&courseId=' + courseId).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
+
+
+        coordinatorServiceFactory.getInfoCoordinator = _getInfoCoordinator;
+        coordinatorServiceFactory.getInfoByCourse = _getInfoByCourse;
+        return coordinatorServiceFactory;
+    }]);
+
+})();
+
+(function () {
+    'use strict';
+    app.factory('studentService', ['$http', '$q', function ($http, $q) {
+        var studentServiceFactory = {};
+        var serviceBase = 'http://localhost:50689/';
+
+        //https://docs.angularjs.org/api/ng/service/$q
+
 
         var _getInfoStudent = function (userName) {
             var deferred = $q.defer();
@@ -327,19 +368,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
             });
             return deferred.promise;
         };
-        var _getInfoStudentBySubject = function (userName, subject) {
-            var deferred = $q.defer();
-            $http.get(serviceBase + 'api/students/info-by-subject/?username=' + userName + '&subject=' + subject).success(function (res) {
-                deferred.resolve(res);
-            }).error(function (err, status) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
-        };
 
-        studentServiceFactory.getAllStudents = _getAllStudents;
+
         studentServiceFactory.getInfoStudent = _getInfoStudent;
-        studentServiceFactory.getInfoStudentBySubject = _getInfoStudentBySubject;
         return studentServiceFactory;
     }]);
 
