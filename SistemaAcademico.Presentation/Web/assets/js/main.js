@@ -32,6 +32,10 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/coordinators/index.html',
         controller: 'coordinatorsHomeCtrl'
     }).
+    when('/coordinator/info-by-course/:param1', {
+        templateUrl: 'partials/coordinators/course.html',
+        controller: 'coordinatorInfoCourseCtrl'
+    }).
     when('/secretary/info', {
         templateUrl: 'partials/secretaries/index.html',
         controller: 'secretariesHomeCtrl'
@@ -45,6 +49,26 @@ app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
 
+
+
+
+(function () {
+    'user strict';
+    app.controller('coordinatorInfoCourseCtrl', function ($scope, $filter, $routeParams, coordinatorService, authService, dateFilter) {
+        var courseId = $routeParams.param1;
+        coordinatorService.getInfoByCourse(authService.authentication.userName, courseId).then(function (response) {
+            console.log(courseId);
+            console.log(response)
+            $scope.coordinator = response;
+        },
+        function (err) {
+            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
+            //usuario nao encontrado
+            console.log(err)
+        });
+    });
+})();
+
 (function () {
     'user strict';
     app.controller('coordinatorsHomeCtrl', function ($scope, $filter, coordinatorService, authService, dateFilter) {
@@ -55,18 +79,7 @@ app.run(['authService', function (authService) {
             //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
             //usuario nao encontrado
             console.log(err)
-        });
-
-        $scope.selectCourse = function (courseId) {
-            coordinatorService.getInfoByCourse(authService.authentication.userName, courseId).then(function (response) {
-                console.log(response)
-            },
-            function (err) {
-                //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-                //usuario nao encontrado
-                console.log(err)
-            });
-        }
+        });       
     });
 })();
 

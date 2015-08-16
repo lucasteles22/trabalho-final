@@ -32,6 +32,10 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         templateUrl: 'partials/coordinators/index.html',
         controller: 'coordinatorsHomeCtrl'
     }).
+    when('/coordinator/info-by-course/:param1', {
+        templateUrl: 'partials/coordinators/course.html',
+        controller: 'coordinatorInfoCourseCtrl'
+    }).
     when('/secretary/info', {
         templateUrl: 'partials/secretaries/index.html',
         controller: 'secretariesHomeCtrl'

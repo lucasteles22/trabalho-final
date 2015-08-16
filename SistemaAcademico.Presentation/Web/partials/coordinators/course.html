@@ -1,0 +1,39 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <h2 class="text-center">Curso: {{coordinator.Course.Name}}</h2>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Login
+                    </th>
+                    <th class="text-center">
+                        Quantidade disciplinas
+                    </th>
+                    <th class="text-center">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in coordinator.Course.Students">
+                    <td class="text-center">
+                        {{x.Name}}
+                    </td>
+                    <td class="text-center">
+                        {{x.AmountSubject}}
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-primary" href="#">Verificar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

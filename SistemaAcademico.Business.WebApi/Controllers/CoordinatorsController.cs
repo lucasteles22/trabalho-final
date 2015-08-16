@@ -49,21 +49,12 @@ namespace SistemaAcademico.Business.WebApi.Controllers
                                                 .Where(y => y.Id == courseId)
                                                 .Select(y => new
                                                 {
-                                                    Course = y.Name,
+                                                    Name = y.Name,
                                                     Id = y.Id,
                                                     Students = y.Students.Select(z => new
                                                     {
                                                         Name = z.UserName,
-                                                        Scores = z.Scores.OrderBy(s => s.SchoolClass.StarDate)
-                                                                 .Select(s => new
-                                                                 {
-                                                                     Value = s.Value,
-                                                                     Subject = s.SchoolClass.Subject.Name,
-                                                                     SchoolClass = s.SchoolClass.Name,
-                                                                     StartDate = s.SchoolClass.StarDate,
-                                                                     EndDate = s.SchoolClass.EndDate
-                                                                 })
-                                                                 .ToList()
+                                                        AmountSubject = z.SchoolClasses.Count
                                                     })
                                                     .ToList()
                                                 })
