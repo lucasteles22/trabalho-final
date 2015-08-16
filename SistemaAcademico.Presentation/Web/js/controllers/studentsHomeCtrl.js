@@ -7,9 +7,6 @@
             allScores = response.Scores;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });
 
 
@@ -32,10 +29,7 @@
                 var startDateChoosed = new Date($scope.startDateStr);
                 var endDateChoosed = new Date($scope.endDateStr);
                 if (startDateChoosed <= endDateChoosed) {
-                    //console.log($scope.student[0])
                     return false;
-                } else {
-                    console.log('data inicial menor que final')
                 }
             }
             return true;

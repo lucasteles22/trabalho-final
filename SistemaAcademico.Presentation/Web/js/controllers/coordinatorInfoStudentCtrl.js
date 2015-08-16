@@ -9,9 +9,6 @@
             allScores = response.Info.Student.Scores;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });
         $scope.filter = {
             option: 'subject'

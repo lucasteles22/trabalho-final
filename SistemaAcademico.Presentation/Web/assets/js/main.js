@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('sistemaAcademico', ['ngRoute', 'LocalStorageModule']);
+var app = angular.module('sistemaAcademico', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
 app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
 
     /* In�cio - dasativar cache e status 304 - not modified*/
@@ -65,14 +65,9 @@ app.run(['authService', function (authService) {
     app.controller('coordinatorInfoCourseCtrl', function ($scope, $filter, $routeParams, coordinatorService, authService, dateFilter) {
         var courseId = $routeParams.param1;
         coordinatorService.getInfoByCourse(authService.authentication.userName, courseId).then(function (response) {
-           
-            console.log(response)
-            $scope.coordinator = response;
+           $scope.coordinator = response;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });
     });
 })();
@@ -88,9 +83,6 @@ app.run(['authService', function (authService) {
             allScores = response.Info.Student.Scores;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });
         $scope.filter = {
             option: 'subject'
@@ -121,9 +113,6 @@ app.run(['authService', function (authService) {
             $scope.coordinator = response;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });       
     });
 })();
@@ -168,13 +157,9 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     'user strict';
     app.controller('secretariesHomeCtrl', function ($scope, $filter, secretaryService, authService, dateFilter) {
         secretaryService.getAllStudents().then(function (response) {
-            console.log(response)
             $scope.secretary = response;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });
     });
 })();
@@ -184,13 +169,9 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
     app.controller('secretariesInfoStudentCtrl', function ($scope, $filter, $routeParams, secretaryService, authService, dateFilter) {
         var studentUserName = $routeParams.param1;
         secretaryService.getInfoStudent(studentUserName).then(function (response) {
-            console.log(response)
             $scope.secretary = response;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });
     });
 })();
@@ -204,9 +185,6 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
             allScores = response.Scores;
         },
         function (err) {
-            //Pode-se criar uma mensagem ao usuário de erro, ou criar um ponto de log, pois será muito provável erro na API (404 ou 500).
-            //usuario nao encontrado
-            console.log(err)
         });
 
 
@@ -229,10 +207,7 @@ app.controller('loginCtrl', function ($scope, $location, authService) {
                 var startDateChoosed = new Date($scope.startDateStr);
                 var endDateChoosed = new Date($scope.endDateStr);
                 if (startDateChoosed <= endDateChoosed) {
-                    //console.log($scope.student[0])
                     return false;
-                } else {
-                    console.log('data inicial menor que final')
                 }
             }
             return true;
