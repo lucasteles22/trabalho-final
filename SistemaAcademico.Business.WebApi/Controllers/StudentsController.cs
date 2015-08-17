@@ -9,8 +9,8 @@ using System.Web.Http;
 
 namespace SistemaAcademico.Business.WebApi.Controllers
 {
+    [Authorize(Roles = "student")]
     [RoutePrefix("api/students")]
-    [Authorize]
     public class StudentsController : ApiController
     {
         private ApplicationDbContext _db;

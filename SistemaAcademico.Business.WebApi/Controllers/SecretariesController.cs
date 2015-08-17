@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace SistemaAcademico.Business.WebApi.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "secretary")]
     [RoutePrefix("api/secretaries")]
     public class SecretariesController : ApiController
     {

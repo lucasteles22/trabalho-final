@@ -9,15 +9,15 @@ $font-family-base: 'Raleway', sans-serif;
 
 
 #loading-bar .bar {
-    background: #fff;
-    height: 4px;
+    background: #fff !important;
+    height: 4px !important;
 }
 
 #loading-bar-spinner .spinner-icon {
-    width: 18px;
-    height: 18px;
-    border: solid 4px transparent;
-    border-top-color: #fff;
-    border-left-color: #fff;
-    border-radius: 10px;
+    width: 18px !important;
+    height: 18px !important;
+    border: solid 4px transparent !important;
+    border-top-color: #fff !important;
+    border-left-color: #fff !important;
+    border-radius: 10px !important;
 }

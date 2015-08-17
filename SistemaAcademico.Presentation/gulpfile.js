@@ -7,7 +7,7 @@
 
 var config = {
     sassPath: './Web/sass',
-	jsPath: './Web/js',
+    jsPath: './Web/js',
     bowerDir: './Web/assets/vendors'
 }
 
@@ -37,16 +37,16 @@ gulp.task('css', function () {
     .pipe(gulp.dest('./Web/assets/css/'));
 });
 
-gulp.task('js', function() {
-  return gulp.src(config.jsPath+'/**/*.js')
-	.pipe(concat('main.js'))
-    //.pipe(uglify())
-    .pipe(gulp.dest('./Web/assets/js/'));
+gulp.task('js', function () {
+    return gulp.src(config.jsPath + '/**/*.js')
+      .pipe(concat('main.js'))
+      .pipe(uglify({ mangle: false }))
+      .pipe(gulp.dest('./Web/assets/js/'));
 });
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
-	gulp.watch(config.jsPath+'/**/*.js', ['js']);
+    gulp.watch(config.jsPath + '/**/*.js', ['js']);
     gulp.watch(config.sassPath + '/**/*.scss', ['css']);
 });
 

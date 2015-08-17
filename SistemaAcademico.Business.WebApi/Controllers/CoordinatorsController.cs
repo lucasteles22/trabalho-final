@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace SistemaAcademico.Business.WebApi.Controllers
 {
     [RoutePrefix("api/coordinators")]
-    [Authorize]
+    [Authorize(Roles = "coordinator")]
     public class CoordinatorsController : ApiController
     {
         private ApplicationDbContext _db;
